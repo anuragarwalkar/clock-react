@@ -1,32 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const defaultRotateAngel = 180;
-const rotateAngel = defaultRotateAngel / 60;
+const totalRotateAngle = 360;
+const rotateAngel = totalRotateAngle / 60;
 
 const Clock = () => {
-  const [seconds, setSeconds] = useState(defaultRotateAngel);
-  const [minutes, setMinutes] = useState(defaultRotateAngel);
-  const [hours, setHours] = useState(defaultRotateAngel);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [hours, setHours] = useState(0);
   const interval = useRef();
 
   useEffect(() => {
     interval.current = setInterval(() => {
       setSeconds((s) => {
-        if (s === 540) {
+        if (s === totalRotateAngle) {
           setMinutes((m) => {
-            if (m === 540) {
+            if (m === totalRotateAngle) {
               setHours((h) => {
-                if (h === 540) {
-                    return defaultRotateAngel;
+                if (h === totalRotateAngle) {
+                    return totalRotateAngle;
                 }
                 return h + rotateAngel
               });
-              return defaultRotateAngel;
+              return totalRotateAngle;
             }
             return m + rotateAngel;
           });
-          return defaultRotateAngel;
+          return totalRotateAngle;
         }
+
         return s + rotateAngel;
       });
     }, 1000);
@@ -101,10 +102,10 @@ const Clock = () => {
             width: 2,
             height: 130,
             position: "absolute",
-            top: "50%",
+            bottom: "50%",
             left: "50%",
             rotate: `${seconds}deg`,
-            transformOrigin: "0% 0%",
+            transformOrigin: "100% 100%",
           }}
         ></div>
         <div
@@ -113,10 +114,10 @@ const Clock = () => {
             width: 4,
             height: 140,
             position: "absolute",
-            top: "50%",
+            bottom: "50%",
             left: "50%",
             rotate: `${minutes}deg`,
-            transformOrigin: "0% 0%",
+            transformOrigin: "100% 100%",
           }}
         ></div>
         <div
@@ -125,10 +126,10 @@ const Clock = () => {
             width: 6,
             height: 150,
             position: "absolute",
-            top: "50%",
+            bottom: "50%",
             left: "50%",
             rotate: `${hours}deg`,
-            transformOrigin: "0% 0%",
+            transformOrigin: "100% 100%",
           }}
         ></div>
       </div>
