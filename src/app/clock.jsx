@@ -1,37 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-
-const totalRotateAngle = 360;
-const rotateAngel = totalRotateAngle / 60;
+import React, { useEffect, useState } from "react";
 
 const Clock = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [hours, setHours] = useState(0);
-  const interval = useRef();
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    interval.current = setInterval(() => {
-      setSeconds((s) => {
-        if (s === totalRotateAngle) {
-          setMinutes((m) => {
-            if (m === totalRotateAngle) {
-              setHours((h) => {
-                if (h === totalRotateAngle) {
-                    return totalRotateAngle;
-                }
-                return h + rotateAngel
-              });
-              return totalRotateAngle;
-            }
-            return m + rotateAngel;
-          });
-          return totalRotateAngle;
-        }
-
-        return s + rotateAngel;
-      });
+    const interval = setInterval(() => {
+      setDate(new Date());
     }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
+
+  const hours = date.getHours() * 30; 
+  const minutes = date.getMinutes() * 6;
+  const seconds = date.getSeconds() * 6;
 
   return (
     <div
